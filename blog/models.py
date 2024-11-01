@@ -14,6 +14,7 @@ class Post(models.Model):
     
 class Blog(models.Model):
     nome = models.CharField(max_length=100)
+    subnome = models.TextField(max_length=200, blank=True)
     descricao = models.TextField(max_length=2000)
     capa = models.ImageField(blank=True)
     logo = models.ImageField()
