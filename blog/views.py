@@ -8,11 +8,20 @@ def index(request):
     }
     return render(request, "index.html", context)
 
-def contact(request):
+def contact(request):                                                                                                                                                                                                                                                                     
     context = {
-        "blog" : Blog.objects.first(),
-    }
-    return render(request, "contact.html", context)
+            "blog" : Blog.objects.first(),
+        }
+
+    if request.method == "POST":
+        print(request.POST['nome'])
+        print(request.POST['email'])
+        print(request.POST['telefone'])
+        print(request.POST['mensagem'])
+        return render(request, "contact.html", context)
+    
+    else:
+        return render(request, "contact.html", context)
 
 def post(request, post_id):
     context = {

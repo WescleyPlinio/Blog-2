@@ -25,3 +25,12 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class Mensagem(models.Model):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField(max_length=254)
+    telefone = models.CharField(max_length=12)
+    mensagem = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.nome} - {self.email}"
