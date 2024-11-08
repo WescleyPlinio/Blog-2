@@ -28,7 +28,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <p>Quer entrar em contato? Apois cuide!</p>
                 <div class="my-5">
-                    <form action="{% url 'contact' %}" id="contactForm" method="POST">
+                    <form id="contactForm" method="POST">
                         {% csrf_token %}
                         <div class="form-floating">
                             <input class="form-control" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
