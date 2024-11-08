@@ -56,3 +56,11 @@ def about(request):
         "blog" : Blog.objects.first(),
     }
     return render(request, "about.html", context)
+
+def mensagens(request):
+    context = {
+        "mensagens" : Mensagem.objects.all(),
+        "blog" : Blog.objects.first(),
+    }
+
+    return render(request, "mensagens.html", context)
