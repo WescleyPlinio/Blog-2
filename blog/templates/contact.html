@@ -31,23 +31,22 @@
                     <form id="contactForm" method="POST">
                         {% csrf_token %}
                         <div class="form-floating">
-                            <input class="form-control" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
+                            <input class="form-control {% if erro.nome %} is-invalid {% endif %}" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
                             <label for="name">Nome:</label>
                             <div class="invalid-feedback">Cadê o nome?</div>
                         </div>
                         <div class="form-floating">
-                            <input class="form-control" name ="email" id="email" type="email" placeholder="Digite seu email" data-sb-validations="required,email" />
+                            <input class="form-control {% if erro.email %} is-invalid {% endif %}" name ="email" id="email" type="email" placeholder="Digite seu email" data-sb-validations="required,email" />
                             <label for="email">Email:</label>
                             <div class="invalid-feedback">Cadê o email?</div>
-                            <div class="invalid-feedback">Que email é esse?</div>
                         </div>
                         <div class="form-floating">
-                            <input class="form-control" name ="telefone" id="phone" type="tel" placeholder="Digite seu telefone" data-sb-validations="required" />
+                            <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" name ="telefone" id="phone" type="tel" placeholder="Digite seu telefone" data-sb-validations="required" />
                             <label for="phone">Telefone:</label>
                             <div class="invalid-feedback">Cadê o telefone?</div>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control" name ="mensagem" id="message" placeholder="Digite sua mensagem" style="height: 12rem" data-sb-validations="required"></textarea>
+                            <textarea class="form-control {% if erro.mensagem %} is-invalid {% endif %}" name ="mensagem" id="message" placeholder="Digite sua mensagem" style="height: 12rem" data-sb-validations="required"></textarea>
                             <label for="message">Mensagem:</label>
                             <div class="invalid-feedback">Cadê a mensagem?</div>
                         </div>

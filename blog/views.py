@@ -19,8 +19,18 @@ def contact(request):
         print(request.POST['telefone'])
         print(request.POST['mensagem'])
 
+        context['erro'] = {}
         if not request.POST['nome']:
-            print("User didn't give the name")
+            context['erro']['nome'] = True
+        if not request.POST['email']:
+            context['erro']['email'] = True
+        if not request.POST['telefone']:
+            context['erro']['telefone'] = True
+        if not request.POST['mensagem']:
+            context['erro']['mensagem'] = True
+        if context['erro']:
+            return render(request, "contact.html", context)
+            
     
         mensagem = Mensagem(nome = request.POST['nome'],
                             email = request.POST['email'],
