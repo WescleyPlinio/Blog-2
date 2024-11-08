@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Blog
+from .models import Post, Blog, Mensagem
 
 def index(request):
     context = {
@@ -18,6 +18,17 @@ def contact(request):
         print(request.POST['email'])
         print(request.POST['telefone'])
         print(request.POST['mensagem'])
+
+        if not request.POST['nome']:
+            print("User didn't give the name")
+    
+        mensagem = Mensagem(nome = request.POST['nome'],
+                            email = request.POST['email'],
+                            telefone = request.POST['telefone'],
+                            mensagem = request.POST['mensagem'],
+                            )
+        mensagem.save()
+
         return render(request, "contact.html", context)
     
     else:
