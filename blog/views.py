@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post, Blog, Mensagem
 
 def index(request):
@@ -89,3 +89,15 @@ def editar_mensagem(request, mensagem_id):
 
     return render(request, "editcontact.html", context)
 
+def deletar_mensagem(request, mensagem_id):
+    context = {
+        "blog" : Blog.objects.first(),
+        "mensagem" : Mensagem.objects.get(pk = mensagem_id),
+    }
+
+    if request.method == "POST":
+        context["mensagem"].delete()
+        return redirect("mensagens")
+    
+    else:
+        return render(request, "deletecontact.html", context)
