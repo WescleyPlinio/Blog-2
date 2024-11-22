@@ -63,7 +63,29 @@ def mensagens(request):
 def editar_mensagem(request, mensagem_id):
     context = {
         "blog" : Blog.objects.first(),
-        "mensagens" : Mensagem.objects.get(pk = mensagem_id),
+        "mensagem" : Mensagem.objects.get(pk = mensagem_id),
     }
-    return render(request, "contact.html", context)
+
+    if request.method == "POST":
+        context['erro'] = {}
+        if not request.POST['nome']:
+            context['erro']['nome'] = True
+        if not request.POST['email']:
+            context['erro']['email'] = True
+        if not request.POST['telefone']:
+            context['erro']['telefone'] = True
+        if not request.POST['mensagem']:
+            context['erro']['mensagem'] = True
+        if context['erro']:
+            return render(request, "editcontact.html", context)
+        
+        mensagem = context ["mensagem"]
+        mensagem.nome = request.POST['nome']
+        mensagem.email = request.POST['email']
+        mensagem.telefone = request.POST['telefone']
+        mensagem.mensagem = request.POST['mensagem']
+
+        mensagem.save()
+
+    return render(request, "editcontact.html", context)
 
