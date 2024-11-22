@@ -14,10 +14,6 @@ def contact(request):
         }
 
     if request.method == "POST":
-        print(request.POST['nome'])
-        print(request.POST['email'])
-        print(request.POST['telefone'])
-        print(request.POST['mensagem'])
 
         context['erro'] = {}
         if not request.POST['nome']:
@@ -62,5 +58,12 @@ def mensagens(request):
         "mensagens" : Mensagem.objects.all(),
         "blog" : Blog.objects.first(),
     }
-
     return render(request, "mensagens.html", context)
+
+def editar_mensagem(request, mensagem_id):
+    context = {
+        "blog" : Blog.objects.first(),
+        "mensagens" : Mensagem.objects.get(pk = mensagem_id),
+    }
+    return render(request, "contact.html", context)
+

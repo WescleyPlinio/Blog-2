@@ -33,6 +33,12 @@
                             Número:
                             <a href="#!">{{mensagem.telefone}}</a>
                         </p>
+                        <a href="{% url 'editar_mensagem' mensagem.id %}">
+                            <button type="button" class="btn btn-sm btn-danger">Deletar</button>
+                        </a>
+                        <a href="{% url 'editar_mensagem' mensagem.id %}">
+                            <button type="button" class="btn btn-sm btn-warning">Editar</button>
+                        </a>
                     </div>
                     <!-- Divider-->
                     <hr class="my-4" />
