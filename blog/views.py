@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Post, Blog, Mensagem
+from .forms import MensagemForm
 
 def index(request):
     context = {
@@ -14,30 +15,20 @@ def contact(request):
         }
 
     if request.method == "POST":
-
-        context['erro'] = {}
-        if not request.POST['nome']:
-            context['erro']['nome'] = True
-        if not request.POST['email']:
-            context['erro']['email'] = True
-        if not request.POST['telefone']:
-            context['erro']['telefone'] = True
-        if not request.POST['mensagem']:
-            context['erro']['mensagem'] = True
-        if context['erro']:
-            return render(request, "contact.html", context)
-            
-    
-        mensagem = Mensagem(nome = request.POST['nome'],
-                            email = request.POST['email'],
-                            telefone = request.POST['telefone'],
-                            mensagem = request.POST['mensagem'],
-                            )
-        mensagem.save()
+        form = MensagemForm(request.POST)
+        if form.is_valid():
+            mensagem = Mensagem(
+                nome = form.cleaned_data["nome"],
+                email = form.cleaned_data["email"],
+                telefone = form.cleaned_data["telefone"],
+                mensagem = form.cleaned_data["mensagem"],
+            )
+            mensagem.save()
 
         return render(request, "contact.html", context)
     
     else:
+        context["form"] = MensagemForm()
         return render(request, "contact.html", context)
 
 def post(request, post_id):

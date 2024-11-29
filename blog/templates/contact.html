@@ -30,7 +30,8 @@
                 <div class="my-5">
                     <form id="contactForm" method="POST">
                         {% csrf_token %}
-                        <div class="form-floating">
+                        {{ form }}
+                        {% comment %} <div class="form-floating">
                             <input class="form-control {% if erro.nome %} is-invalid {% endif %}" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
                             <label for="name">Nome:</label>
                             <div class="invalid-feedback">Cadê o nome?</div>
@@ -67,7 +68,7 @@
                         <!---->
                         <!-- This is what your users will see when there is-->
                         <!-- an error submitting the form-->
-                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> {% endcomment %}
                         <!-- Submit Button-->
                         <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Enviar</button>
                     </form>
