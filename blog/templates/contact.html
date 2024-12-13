@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static crispy_forms_tags %}
 
 {% block header %}
 
@@ -30,46 +30,7 @@
                 <div class="my-5">
                     <form id="contactForm" method="POST">
                         {% csrf_token %}
-                        {{ form }}
-                        {% comment %} <div class="form-floating">
-                            <input class="form-control {% if erro.nome %} is-invalid {% endif %}" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
-                            <label for="name">Nome:</label>
-                            <div class="invalid-feedback">Cadê o nome?</div>
-                        </div>
-                        <div class="form-floating">
-                            <input class="form-control {% if erro.email %} is-invalid {% endif %}" name ="email" id="email" type="email" placeholder="Digite seu email" data-sb-validations="required,email" />
-                            <label for="email">Email:</label>
-                            <div class="invalid-feedback">Cadê o email?</div>
-                        </div>
-                        <div class="form-floating">
-                            <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" name ="telefone" id="phone" type="tel" placeholder="Digite seu telefone" data-sb-validations="required" />
-                            <label for="phone">Telefone:</label>
-                            <div class="invalid-feedback">Cadê o telefone?</div>
-                        </div>
-                        <div class="form-floating">
-                            <textarea class="form-control {% if erro.mensagem %} is-invalid {% endif %}" name ="mensagem" id="message" placeholder="Digite sua mensagem" style="height: 12rem" data-sb-validations="required"></textarea>
-                            <label for="message">Mensagem:</label>
-                            <div class="invalid-feedback">Cadê a mensagem?</div>
-                        </div>
-                        <br />
-                        <!-- Submit success message-->
-                        <!---->
-                        <!-- This is what your users will see when the form-->
-                        <!-- has successfully submitted-->
-                        <div class="d-none" id="submitSuccessMessage">
-                            <div class="text-center mb-3">
-                                <div class="fw-bolder">Form submission successful!</div>
-                                To activate this form, sign up at
-                                <br />
-                                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                            </div>
-                        </div>
-                        <!-- Submit error message-->
-                        <!---->
-                        <!-- This is what your users will see when there is-->
-                        <!-- an error submitting the form-->
-                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> {% endcomment %}
-                        <!-- Submit Button-->
+                        {{ form | crispy }}                        
                         <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Enviar</button>
                     </form>
                 </div>
@@ -78,4 +39,44 @@
     </div>
 </main>
 
+
 {% endblock conteudo %}
+{% comment %} <div class="form-floating">
+    <input class="form-control {% if erro.nome %} is-invalid {% endif %}" name ="nome" id="name" type="text" placeholder="Digite seu nome" data-sb-validations="required" />
+    <label for="name">Nome:</label>
+    <div class="invalid-feedback">Cadê o nome?</div>
+</div>
+<div class="form-floating">
+    <input class="form-control {% if erro.email %} is-invalid {% endif %}" name ="email" id="email" type="email" placeholder="Digite seu email" data-sb-validations="required,email" />
+    <label for="email">Email:</label>
+    <div class="invalid-feedback">Cadê o email?</div>
+</div>
+<div class="form-floating">
+    <input class="form-control {% if erro.telefone %} is-invalid {% endif %}" name ="telefone" id="phone" type="tel" placeholder="Digite seu telefone" data-sb-validations="required" />
+    <label for="phone">Telefone:</label>
+    <div class="invalid-feedback">Cadê o telefone?</div>
+</div>
+<div class="form-floating">
+    <textarea class="form-control {% if erro.mensagem %} is-invalid {% endif %}" name ="mensagem" id="message" placeholder="Digite sua mensagem" style="height: 12rem" data-sb-validations="required"></textarea>
+    <label for="message">Mensagem:</label>
+    <div class="invalid-feedback">Cadê a mensagem?</div>
+</div>
+<br />
+<!-- Submit success message-->
+<!---->
+<!-- This is what your users will see when the form-->
+<!-- has successfully submitted-->
+<div class="d-none" id="submitSuccessMessage">
+    <div class="text-center mb-3">
+        <div class="fw-bolder">Form submission successful!</div>
+        To activate this form, sign up at
+        <br />
+        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+    </div>
+</div>
+<!-- Submit error message-->
+<!---->
+<!-- This is what your users will see when there is-->
+<!-- an error submitting the form-->
+<div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div> {% endcomment %}
+<!-- Submit Button-->
