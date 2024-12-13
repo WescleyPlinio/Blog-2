@@ -17,13 +17,7 @@ def contact(request):
     if request.method == "POST":
         form = MensagemForm(request.POST)
         if form.is_valid():
-            mensagem = Mensagem(
-                nome = form.cleaned_data["nome"],
-                email = form.cleaned_data["email"],
-                telefone = form.cleaned_data["telefone"],
-                mensagem = form.cleaned_data["mensagem"],
-            )
-            mensagem.save()
+            form.save()
 
         return render(request, "contact.html", context)
     
@@ -92,3 +86,9 @@ def deletar_mensagem(request, mensagem_id):
     
     else:
         return render(request, "deletecontact.html", context)
+
+def cadastro(request):
+    context = {
+        "blog" : Blog.objects.first(),
+    }
+    return render(request, "cadastro.html", context)
