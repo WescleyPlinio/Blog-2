@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Blog, Mensagem
 from .forms import MensagemForm, PostForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     context = {
@@ -29,6 +30,7 @@ def contact(request):
 
     return render(request, "contact.html", context)
 
+@login_required
 def criar_post(request):                                                                                                                                                                                                                                                                     
     context = {
             "blog" : Blog.objects.first(),
