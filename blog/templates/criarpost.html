@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static crispy_forms_tags %}
+
+{% block header %}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('{{blog.capa.url}}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Crie o seu post aqui.</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock header %}
+
+{% block conteudo %}
+
+<!-- Main Content-->
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p>Quer entrar em contato? Apois cuide!</p>
+                <div class="my-5">
+                    <form id="contactForm" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% crispy form %}                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock conteudo %}

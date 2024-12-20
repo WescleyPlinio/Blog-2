@@ -37,6 +37,13 @@
                 <p>
                     {{ post.conteudo }}
                 </p>
+
+                <a href="{% url 'deletar_post' post.id %}">
+                    <button type="button" class="btn btn-sm btn-danger">Deletar</button>
+                </a>
+                <a href="{% url 'editar_post' post.id %}">
+                    <button type="button" class="btn btn-sm btn-warning">Editar</button>
+                </a>
             </div>
         </div>
     </div>
