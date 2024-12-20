@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Blog, Mensagem
-from .forms import MensagemForm
+from .forms import MensagemForm, PostForm
 
 def index(request):
     context = {
@@ -29,6 +29,26 @@ def contact(request):
 
     return render(request, "contact.html", context)
 
+def criar_post(request):                                                                                                                                                                                                                                                                     
+    context = {
+            "blog" : Blog.objects.first(),
+        }
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("index")
+        else:
+            context["form"] = form
+
+        return render(request, "contact.html", context)
+    
+    else:
+        context["form"] = PostForm()
+
+    return render(request, "contact.html", context)
+
 def post(request, post_id):
     context = {
         "post" : Post.objects.get(pk=post_id),
@@ -50,33 +70,23 @@ def mensagens(request):
     return render(request, "mensagens.html", context)
 
 def editar_mensagem(request, mensagem_id):
+    mensagem = get_object_or_404(Mensagem, pk = mensagem_id)
     context = {
         "blog" : Blog.objects.first(),
-        "mensagem" : Mensagem.objects.get(pk = mensagem_id),
+        "form": MensagemForm(instance=mensagem)
     }
 
     if request.method == "POST":
-        context['erro'] = {}
-        if not request.POST['nome']:
-            context['erro']['nome'] = True
-        if not request.POST['email']:
-            context['erro']['email'] = True
-        if not request.POST['telefone']:
-            context['erro']['telefone'] = True
-        if not request.POST['mensagem']:
-            context['erro']['mensagem'] = True
-        if context['erro']:
-            return render(request, "editcontact.html", context)
-        
-        mensagem = context ["mensagem"]
-        mensagem.nome = request.POST['nome']
-        mensagem.email = request.POST['email']
-        mensagem.telefone = request.POST['telefone']
-        mensagem.mensagem = request.POST['mensagem']
+        form = MensagemForm(request.POST, instance = mensagem)
+        if form.is_valid():
+            form.save()
+            return redirect("mensagens")
+        else:
+            context["form"] = form
 
-        mensagem.save()
+        return render(request, "contact.html", context)
 
-    return render(request, "editcontact.html", context)
+    return render(request, "contact.html", context)
 
 def deletar_mensagem(request, mensagem_id):
     context = {
@@ -90,6 +100,38 @@ def deletar_mensagem(request, mensagem_id):
     
     else:
         return render(request, "deletecontact.html", context)
+    
+def editar_post(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    context = {
+        "blog" : Blog.objects.first(),
+        "form": PostForm(instance=post)
+    }
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance = post)
+        if form.is_valid():
+            form.save()
+            return redirect("mensagens")
+        else:
+            context["form"] = form
+
+        return render(request, "contact.html", context)
+
+    return render(request, "contact.html", context)
+
+def deletar_post(request, post_id):
+    context = {
+        "blog" : Blog.objects.first(),
+        "post" : Post.objects.get(pk = post_id),
+    }
+
+    if request.method == "POST":
+        context["post"].delete()
+        return redirect("mensagens")
+    
+    else:
+        return render(request, "deletepost.html", context)
 
 def cadastro(request):
     context = {
